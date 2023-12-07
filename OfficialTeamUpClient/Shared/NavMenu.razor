@@ -1,6 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@* <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">OfficialTeamUpClient</a>
+        <a class="navbar-brand" href=""></a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -25,7 +25,48 @@
             </NavLink>
         </div>
     </nav>
-</div>
+</div> *@
+
+<header>
+    <div class="logo">
+        <div class="logo-icon"></div>
+    </div>
+    <div class="hamburger">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div> 
+    </div>
+    <nav class="nav-bar">
+        <ul>
+            <li>
+                @* <NavLink class="nav-item active" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink> *@
+                <a href="">Home</a>
+            </li>
+            <li>
+                @* <NavLink class="nav-item active" href="counter" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Counter
+                </NavLink> *@
+                <a href="">Counter</a>
+            </li>
+            <li>
+                @* <NavLink class="nav-item active" href="fetchdata" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Fetch Data
+                </NavLink> *@
+                <a href="">Fetch Data</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+    hamburger = document.querySelector(".hamburger");
+    hamburger.onclick = function() {
+        navBar = document.querySelector(".nav-bar");
+        navBar.classList.toggle("active");
+    }
+</script>
 
 @code {
     private bool collapseNavMenu = true;
