@@ -27,7 +27,7 @@
     </nav>
 </div> *@
 
-<header>
+@* <header>
     <div class="logo">
         <div class="logo-icon"></div>
     </div>
@@ -38,42 +38,114 @@
     </div>
     <nav class="nav-bar">
         <ul>
-            <li>
+            <li> *@
                 @* <NavLink class="nav-item active" href="" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span> Home
                 </NavLink> *@
-                <a href="">Home</a>
+           @*      <a href="">Home</a>
             </li>
-            <li>
+            <li> *@
                 @* <NavLink class="nav-item active" href="counter" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span> Counter
                 </NavLink> *@
-                <a href="">Counter</a>
+            @*     <a href="">Counter</a>
             </li>
-            <li>
+            <li> *@
                 @* <NavLink class="nav-item active" href="fetchdata" Match="NavLinkMatch.All">
                     <span class="oi oi-home" aria-hidden="true"></span> Fetch Data
                 </NavLink> *@
-                <a href="">Fetch Data</a>
+   @*              <a href="">Fetch Data</a>
             </li>
         </ul>
     </nav>
-</header>
+</header> *@
+
 
 <script>
     hamburger = document.querySelector(".hamburger");
-    hamburger.onclick = function() {
+    hamburger.onclick = function () {
         navBar = document.querySelector(".nav-bar");
         navBar.classList.toggle("active");
     }
+
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+    let searchBtn = document.querySelector(".bx-search");
+
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        menuBtnChange();
+    });
+
+    searchBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        menuBtnChange();
+    });
 </script>
 
-@code {
-    private bool collapseNavMenu = true;
+<head>
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+<div class="sidebar @NavMenuCssClass">
+    <div class="logo-details">
+        <div class='logo-container' id="logo-container"></div>
+        @* <div class="logo_name">Team Up</div> *@
+        <i class='bx bx-menu' id="btn" @onclick="OpenSideBar"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Search...">
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-user'></i>
+                <span class="links_name">User</span>
+            </a>
+            <span class="tooltip">User</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-chat'></i>
+                <span class="links_name">Messages</span>
+            </a>
+            <span class="tooltip">Messages</span>
+        </li>
+        <li class="profile">
+            <div class="profile-details">
+                <div class="name_job">
+                    <div class="name">TeamUp Official</div>
+                    <div class="job">CEO</div>
+                </div>
+            </div>
+            <i class='bx bx-log-out' id="log_out"></i>
+        </li>
+    </ul>
+</div>
+
+
+@code {
+    private bool collapseNavMenu = false;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "open" : null;
 
     private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void OpenSideBar()
     {
         collapseNavMenu = !collapseNavMenu;
     }
