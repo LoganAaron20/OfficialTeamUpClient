@@ -1,12 +1,44 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
-    <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
-    </Found>
-    <NotFound>
-        <PageTitle>Not found</PageTitle>
-        <LayoutView Layout="@typeof(MainLayout)">
-            <p role="alert">Sorry, there's nothing at this address.</p>
-        </LayoutView>
-    </NotFound>
-</Router>
+﻿@using OfficialTeamUpClient.Shared.Components
+@using OfficialTeamUpClient.User
+@using OfficialTeamUpClient.Pages;
+
+@inject NavigationManager Navigation
+@inject UserService User
+
+
+            @if (!User.IsUserAuthenticated)
+            {
+                <div class="login-container">
+                    <div class="alert alert-danger">
+                        <p>You are not authenticated. Please log in.</p>
+                    </div>
+                    <Login OnLoginSuccess="@HandleLoginSuccess" />
+                </div>
+            }
+            else
+            {
+                <!-- Content for authenticated users -->
+                
+                <!-- Add other content here based on your requirements -->
+
+                <Router AppAssembly="@typeof(App).Assembly">
+                    <Found Context="routeData">
+                        <RouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)" />
+                    </Found>
+                    <NotFound>
+                        <PageTitle>Not found</PageTitle>
+                        <LayoutView Layout="@typeof(MainLayout)">
+                            <div class="alert alert-warning">
+                                <p>Sorry, there's nothing at this address.</p>
+                            </div>
+                        </LayoutView>
+                    </NotFound>
+                </Router>
+            }
+
+@code {
+    private void HandleLoginSuccess()
+    {
+        Navigation.NavigateTo("/");
+    }
+}

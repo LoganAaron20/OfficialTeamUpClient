@@ -1,65 +1,7 @@
-﻿@* <div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href=""></a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@using OfficialTeamUpClient.User;
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
-    </nav>
-</div> *@
 
-@* <header>
-    <div class="logo">
-        <div class="logo-icon"></div>
-    </div>
-    <div class="hamburger">
-        <div class="line"></div>
-        <div class="line"></div>
-        <div class="line"></div> 
-    </div>
-    <nav class="nav-bar">
-        <ul>
-            <li> *@
-                @* <NavLink class="nav-item active" href="" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Home
-                </NavLink> *@
-           @*      <a href="">Home</a>
-            </li>
-            <li> *@
-                @* <NavLink class="nav-item active" href="counter" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Counter
-                </NavLink> *@
-            @*     <a href="">Counter</a>
-            </li>
-            <li> *@
-                @* <NavLink class="nav-item active" href="fetchdata" Match="NavLinkMatch.All">
-                    <span class="oi oi-home" aria-hidden="true"></span> Fetch Data
-                </NavLink> *@
-   @*              <a href="">Fetch Data</a>
-            </li>
-        </ul>
-    </nav>
-</header> *@
-
+@inject UserService UserService
 
 <script>
     hamburger = document.querySelector(".hamburger");
@@ -86,8 +28,31 @@
 <head>
     <!-- Boxicons CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
+<div class="header">
+    <div class="header-content">
+
+    </div>
+    <div class="header-profile-content">
+        <div class="header-settings-content">
+            <NavLink class="nav-link" href="/Settings" Match="NavLinkMatch.All">
+                <i class="bi bi-gear-fill"></i>
+            </NavLink>
+        </div>
+        <div class="header-profile-info">
+            <div class="user-info">
+                <span class="profile-name">TeamUp Official</span>
+                <span class="profile-level-gauge">Level 1</span>
+            </div>
+        </div>
+        <div class="header-profile-img-content">
+            <div class="header-profile-image" style="background-image: url(data:image/png;base64,@Convert.ToBase64String(UserService.User.ProfileImage))"></div>
+        </div>
+    </div>
+</div>
 
 <div class="sidebar @NavMenuCssClass">
     <div class="logo-details">

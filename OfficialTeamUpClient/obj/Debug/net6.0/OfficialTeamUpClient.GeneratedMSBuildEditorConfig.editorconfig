@@ -28,8 +28,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Pages/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+[C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Pages/Settings.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2V0dGluZ3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Shared/Components/CustomAuthenticationState.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudHNcQ3VzdG9tQXV0aGVudGljYXRpb25TdGF0ZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Shared/Components/NewsComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXENvbXBvbmVudHNcTmV3c0NvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Shared/Helpers/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEhlbHBlcnNcUmVkaXJlY3RUb0xvZ2luLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Shared/SurveyPrompt.razor]
@@ -39,6 +55,10 @@ build_metadata.AdditionalFiles.CssScope =
 [C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-wgboz8nd5q
 
 [C:/Users/ocpos/source/repos/OfficialTeamUpClient/OfficialTeamUpClient/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
