@@ -1,0 +1,182 @@
+﻿@using OfficialTeamUpClient.User;
+@using OfficialTeamUpClient.ViewModels;
+@using OfficialTeamUpClient.Models;
+
+@page "/login";
+@* @inject HttpClient Http *@
+@inject NavigationManager NavigationManager
+@inject UserService User
+
+
+<div class="container">
+    @if (ViewingMode == "Login")
+    {
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <h3 class="card-title text-center">Login</h3>
+
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        <div class="alert alert-danger text-center" role="alert">
+                            @errorMessage
+                        </div>
+                    }
+
+                    <EditForm Model="loginViewModel" OnValidSubmit="@(() => HandleValidLogin())">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="mb-3">
+                            <label for="UserName" class="form-label">Username:</label>
+                            <InputText id="UserName" @bind-Value="loginViewModel.Username" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Password" class="form-label">Password:</label>
+                            <InputText id="Password" @bind-Value="loginViewModel.Password" type="password" class="form-control" />
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </EditForm>
+                </div>
+                <button @onclick="@(() => ChangeLoginViewMode("Register"))" class="register-btn">Register</button>
+            </div>
+        </div>
+    }
+    else if (ViewingMode == "Register")
+    {
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <h3 class="card-title text-center">Register</h3>
+
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        <div class="alert alert-danger text-center" role="alert">
+                            @errorMessage
+                        </div>
+                    }
+                    <EditForm Model="registerViewModel" OnValidSubmit="@(() => HandleValidRegistration())">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="mb-3">
+                            <label for="FirstName" class="form-label">First Name:</label>
+                            <InputText id="FirstName" @bind-Value="registerViewModel.FirstName" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="LastName" class="form-label">Last Name:</label>
+                            <InputText id="LastName" @bind-Value="registerViewModel.LastName" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email:</label>
+                            <InputText id="Email" @bind-Value="registerViewModel.Email" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="DisplayName" class="form-label">Username:</label>
+                            <InputText id="DisplayName" @bind-Value="registerViewModel.DisplayName" class="form-control" />
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="Password" class="form-label">Pasword:</label>
+                            <InputText id="Password" @bind-Value="registerViewModel.Password" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="ConfirmPassword" class="form-label">Confirm Password:</label>
+                            <InputText id="ConfirmPassword" @bind-Value="registerViewModel.ConfirmPassword" class="form-control" />
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                        </div>
+                    </EditForm>
+                </div>
+                <button @onclick="@(() => ChangeLoginViewMode("Login"))" class="login-btn">Login</button>
+            </div>
+        </div>
+    }
+</div>
+
+
+@code {
+    private LoginViewModel loginViewModel = new LoginViewModel();
+    private RegisterViewModel registerViewModel = new RegisterViewModel();
+    private string errorMessage;
+
+    private string ViewingMode = "Login";
+    private bool IsLoading = false;
+
+    [Parameter] public EventCallback OnLoginSuccess { get; set; }
+
+    private async Task HandleValidLogin()
+    {
+        try
+        {
+            bool loginResult = await User.LoginAsync(loginViewModel);
+
+            if (loginResult)
+            {
+                Console.WriteLine("Logged in...");
+                await OnLoginSuccess.InvokeAsync();
+            }
+            else
+            {
+                errorMessage = "Invalid username or password. Please try again.";
+                Console.WriteLine("Login failed...");
+            }
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            var msg = ex.Message;
+            errorMessage = $"Internal Server Error during login: {msg}";
+            Console.WriteLine($"Error during login: {msg}");
+        }
+    }
+
+    private async Task HandleValidRegistration()
+    {
+        try
+        {
+            if (!ValidatePasswords(registerViewModel))
+            {
+                errorMessage = "The password you entered did not match. Please try again.";
+                return;
+            }
+
+            bool registerResult = await User.RegisterAsync(registerViewModel);
+
+            if (registerResult)
+            {
+                Console.WriteLine($"Registration successful for user: {registerViewModel.DisplayName}");
+                await OnLoginSuccess.InvokeAsync();
+            }
+            else
+            {
+                errorMessage = "User was not created. Something went wrong. Please try again later.";
+                Console.WriteLine("Registration failed...");
+            }
+        }
+        catch (Exception ex)
+        {
+            var msg = ex.Message;
+        }
+    }
+
+    private bool ValidatePasswords(RegisterViewModel model)
+    {
+        if (model.Password != model.ConfirmPassword)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void ChangeLoginViewMode(string mode)
+    {
+        ViewingMode = mode;
+        StateHasChanged();
+    }
+
+}

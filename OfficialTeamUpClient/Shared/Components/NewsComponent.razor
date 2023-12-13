@@ -1,0 +1,56 @@
+﻿<!-- Responsible for displaying recent news to players -->
+@using OfficialTeamUpClient.Services;
+@using OfficialTeamUpClient.User;
+@using OfficialTeamUpClient.Models;
+
+@inherits ComponentBase
+
+@inject UserService User
+@inject NewsService NewsService
+
+<h3>Latest News</h3>
+
+@if (NewsList != null && NewsList.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Author</th>
+                <th>Date Published</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var news in NewsList)
+            {
+                <tr>
+                    <td>@news.Title</td>
+                    <td>@news.Content</td>
+                    <td>@news.Author</td>
+                    <td>@news.DatePublished.ToString("MM/dd/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<NewsModel> NewsList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        NewsList = await NewsService.GetLatestNewsAsync();
+
+        var interval = TimeSpan.FromMinutes(5);
+        var timer = new Timer(async (_) => await RefreshNews(), null, interval, interval);
+    }
+
+    private async Task RefreshNews()
+    {
+        NewsList = await NewsService.GetLatestNewsAsync();
+        StateHasChanged();
+    }
+
+}
